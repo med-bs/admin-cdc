@@ -1,8 +1,18 @@
-import React from 'react'
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
 
 function App() {
+  const [theme, colorMode] = useMode();
   return (
-    <div className="app">App</div>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <main className="content">
+        <div className="app">App</div>
+        </main>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+
   )
 }
 
