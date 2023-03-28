@@ -113,7 +113,7 @@ const SideBar = () => {
                                     ADMIN NAME
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                                    ADM
+                                    ADMIN ROLES
                                 </Typography>
                             </Box>
                         </Box>
