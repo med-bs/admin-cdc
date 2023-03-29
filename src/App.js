@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Calendar from "./scenes/Calendar";
 import ClientForm from "./scenes/ClientForm";
 import Dashboard from "./scenes/Dashboard";
+import FAQ from "./scenes/FAQ";
 import SideBar from "./scenes/global/SideBar";
 import TopBar from "./scenes/global/TopBar";
 import Invoices from "./scenes/Invoices";
@@ -25,6 +26,7 @@ function App() {
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<ClientForm />} />
               <Route path="/calendar" element={<Calendar />} />
+              <Route path="/faq" element={<FAQ />} />
             </Routes>
           </main>
         </div>
