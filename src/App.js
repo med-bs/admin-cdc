@@ -9,6 +9,7 @@ import SideBar from "./scenes/global/SideBar";
 import TopBar from "./scenes/global/TopBar";
 import Invoices from "./scenes/Invoices";
 import Line from "./scenes/Line";
+import Pie from "./scenes/Pie";
 import Team from "./scenes/Team.jsx";
 import { ColorModeContext, useMode } from "./theme";
 
@@ -31,6 +32,7 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/bar" element={<Bar />} />
               <Route path="/line" element={<Line />} />
+              <Route path="/pie" element={<Pie />} />
             </Routes>
           </main>
         </div>
