@@ -97,8 +97,8 @@ const SideBar = () => {
                             <Box display="flex" justifyContent="center" alignItems="center">
                                 <img
                                     alt="profile-user"
-                                    width="100px"
-                                    height="100px"
+                                    width="125px"
+                                    height="125px"
                                     src={AdminImg}
                                     style={{ cursor: "pointer", borderRadius: "50%" }}
                                 />
@@ -110,10 +110,10 @@ const SideBar = () => {
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
-                                    ADMIN NAME
+                                    ADMIN NAME --
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                                    ADMIN ROLES
+                                    ADMIN ROLES --
                                 </Typography>
                             </Box>
                         </Box>

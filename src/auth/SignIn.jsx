@@ -1,15 +1,16 @@
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, IconButton, InputAdornment, TextField, Typography, useTheme } from "@mui/material";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { Avatar, Box, Button, Container, CssBaseline, IconButton, InputAdornment, TextField, Typography, useTheme } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import Header from "../components/Header";
-
-import React, { useContext } from "react";
-import { ColorModeContext, tokens } from "../theme";
-import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import Header from "../components/Header";
+import { ColorModeContext, tokens } from "../theme";
+
 
 const SignIn = () => {
     const navigate = useNavigate();
@@ -77,7 +78,6 @@ const SignIn = () => {
                                 label="username"
                                 name="username"
                                 autoComplete="username"
-                                autoFocus
 
                                 onBlur={handleBlur}
                                 onChange={handleChange}
@@ -114,10 +114,7 @@ const SignIn = () => {
                                 error={!!touched.password && !!errors.password}
                                 helperText={touched.password && errors.password}
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
+
                             <Button
                                 type="submit"
                                 fullWidth
@@ -127,18 +124,7 @@ const SignIn = () => {
                             >
                                 Sign In
                             </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2" color="#000">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
+
                         </Box>
 
                     )}
