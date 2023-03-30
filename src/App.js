@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Bar from "./scenes/Bar";
 import Calendar from "./scenes/Calendar";
 import ClientForm from "./scenes/ClientForm";
@@ -16,15 +16,17 @@ import Team from "./scenes/Team.jsx";
 import { ColorModeContext, useMode } from "./theme";
 
 function App() {
+  const location = useLocation();
+  const showBars = !['/a', '/b'].includes(location.pathname);
   const [theme, colorMode] = useMode();
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <div className="app">
-          <SideBar />
-          <CssBaseline />
+          {showBars && <SideBar />}
+          {showBars && <CssBaseline />}
           <main className="content">
-            <TopBar />
+            {showBars && <TopBar />}
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
