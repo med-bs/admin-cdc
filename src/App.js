@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import SignIn from "./auth/SignIn";
 import Bar from "./scenes/Bar";
 import Calendar from "./scenes/Calendar";
 import ClientForm from "./scenes/ClientForm";
@@ -17,7 +18,7 @@ import { ColorModeContext, useMode } from "./theme";
 
 function App() {
   const location = useLocation();
-  const showBars = !['/a', '/b'].includes(location.pathname);
+  const showBars = !['/signin', '/signup'].includes(location.pathname);
   const [theme, colorMode] = useMode();
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -39,6 +40,8 @@ function App() {
               <Route path="/pie" element={<Pie />} />
               <Route path="/geography" element={<Geography />} />
               <Route path="/contacts" element={<Contacts />} />
+
+              <Route path="/signin" element={<SignIn />} />
             </Routes>
           </main>
         </div>
