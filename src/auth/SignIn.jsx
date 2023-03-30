@@ -6,10 +6,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import Header from "../components/Header";
 
-import * as React from 'react';
-
-
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { ColorModeContext, tokens } from "../theme";
 import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
