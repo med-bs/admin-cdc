@@ -5,6 +5,7 @@ import Calendar from "./scenes/Calendar";
 import ClientForm from "./scenes/ClientForm";
 import Dashboard from "./scenes/Dashboard";
 import FAQ from "./scenes/FAQ";
+import Geography from "./scenes/Geography";
 import SideBar from "./scenes/global/SideBar";
 import TopBar from "./scenes/global/TopBar";
 import Invoices from "./scenes/Invoices";
@@ -33,6 +34,7 @@ function App() {
               <Route path="/bar" element={<Bar />} />
               <Route path="/line" element={<Line />} />
               <Route path="/pie" element={<Pie />} />
+              <Route path="/geography" element={<Geography />} />
             </Routes>
           </main>
         </div>
