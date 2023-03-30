@@ -42,6 +42,8 @@ function App() {
               <Route path="/contacts" element={<Contacts />} />
 
               <Route path="/signin" element={<SignIn />} />
+
+              <Route path="/*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
         </div>
