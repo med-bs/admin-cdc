@@ -201,7 +201,6 @@ export const ColorModeContext = createContext({
 
 export const useMode = () => {
   const [mode, setMode] = useLocalStorage('mode' ? 'dark' : 'light')
-
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () =>
