@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -8,23 +9,42 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
+import { login, reset } from '../api/auth/authSlice'
+
 import Header from "../components/Header";
 import { ColorModeContext, tokens } from "../theme";
 
 
 const SignIn = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { user, isError, isSuccess, message } = useSelector(
+        (state) => state.auth
+    );
+
+    useEffect(() => {
+        if (isError) {
+          //toast.error(message)
+          console.log("sign in isError "+message+isError+" end")
+        }
+    
+        if (isSuccess || user) {
+          navigate('/')
+        }
+    
+        dispatch(reset())
+      }, [user, isError, isSuccess, message, navigate, dispatch])
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
 
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
 
     const handleFormSubmit = (values) => {
-        console.log(values);
-        navigate("/");
+        dispatch(login(values))
     };
 
     return (
