@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Bar from "./scenes/Bar";
 import Calendar from "./scenes/Calendar";
 import ClientForm from "./scenes/ClientForm";
+import Contacts from "./scenes/Contacts";
 import Dashboard from "./scenes/Dashboard";
 import FAQ from "./scenes/FAQ";
 import Geography from "./scenes/Geography";
@@ -35,6 +36,7 @@ function App() {
               <Route path="/line" element={<Line />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/geography" element={<Geography />} />
+              <Route path="/contacts" element={<Contacts />} />
             </Routes>
           </main>
         </div>
