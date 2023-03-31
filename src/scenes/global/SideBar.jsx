@@ -19,6 +19,9 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
+import jwt_decode from 'jwt-decode';
+import { useSelector } from "react-redux";
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -43,6 +46,9 @@ const SideBar = () => {
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
+
+    const { user } = useSelector((state) => state.auth);
+    const userdecoded = jwt_decode(user.accessToken);
 
     return (
         <Box
@@ -110,10 +116,10 @@ const SideBar = () => {
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
-                                    ADMIN NAME --
+                                    {userdecoded.name}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                                    ADMIN ROLES --
+                                    {userdecoded.scope.map((s) => s + ' ')}
                                 </Typography>
                             </Box>
                         </Box>
