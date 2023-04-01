@@ -1,6 +1,8 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import SignIn from "./auth/SignIn";
+import ConnectorForm from "./scenes/cdc/ConnectorForm";
+import Connectors from "./scenes/cdc/Connectors";
 import Bar from "./scenes/Bar";
 import Calendar from "./scenes/Calendar";
 import ClientForm from "./scenes/ClientForm";
@@ -40,6 +42,9 @@ function App() {
               <Route path="/pie" element={<Pie />} />
               <Route path="/geography" element={<Geography />} />
               <Route path="/contacts" element={<Contacts />} />
+
+              <Route path="/connectors" element={<Connectors />} />
+              <Route path="/addconnectors" element={<ConnectorForm />} />
 
               <Route path="/signin" element={<SignIn />} />
 
