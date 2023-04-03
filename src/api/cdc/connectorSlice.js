@@ -92,8 +92,6 @@ export const runConnector = createAsyncThunk(
   "connector/run",
   async (connectorData,  thunkAPI) => {
     try {
-      console.log(">//data")
-      console.log(connectorData)
       const token = thunkAPI.getState().auth.user;
       return await ConnectorService.runConnector(connectorData, token)
     } catch (error) {

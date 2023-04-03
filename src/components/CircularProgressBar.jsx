@@ -9,7 +9,7 @@ const CircularProgressBar = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
     return (
-        <CircularProgress size={isNonMobile ? 50 : 250} style={{ color: colors.greenAccent[700] }} />
+        <CircularProgress size={isNonMobile ? 250 : 50} style={{ color: colors.greenAccent[700] }} />
     );
 };
 
