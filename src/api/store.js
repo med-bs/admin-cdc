@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/authSlice";
-import connectorReucer from "./cdc/connectorSlice";
+import connectorReducer from "./cdc/connectorSlice";
+import kafkaReducer from "./cdc/kafkaSlice"
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
-        cdc: connectorReucer,
+        cdc: connectorReducer,
+        kafka: kafkaReducer
     },
 });
