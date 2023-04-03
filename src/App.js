@@ -26,7 +26,7 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <div className="app">
-          {showBars && <SideBar />}
+          { <SideBar />}
           {showBars && <CssBaseline />}
           <main className="content">
             {showBars && <TopBar />}
