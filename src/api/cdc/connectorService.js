@@ -37,14 +37,17 @@ const createConnector = async (connectorData, token) => {
             Authorization: `Bearer ${token}`,
         },
     };
+    const data = formatConnectorData(connectorData);
 
-    const response = await axios.post(API_URL + "/addwatcher", formatConnectorData(connectorData), config);
+    //await axios.post("http://localhost:8083/connectors/", data);
+
+    const response = await axios.post(API_URL + "/addwatcher", data, config);
 
     return response.data;
 };
 
 // Run Connector
-const runConnector = async (connectorData , token) => {
+const runConnector = async (connectorData, token) => {
 
     const config = {
         headers: {
@@ -52,7 +55,7 @@ const runConnector = async (connectorData , token) => {
         },
     };
 
-    const response =await axios.post(API_URL + "/runwatcher", connectorData, config);
+    const response = await axios.post(API_URL + "/runwatcher", connectorData, config);
     return response.data;
 };
 

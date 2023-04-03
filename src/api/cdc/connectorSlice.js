@@ -20,7 +20,7 @@ export const createConnector = createAsyncThunk(
       const message =
         (error.response &&
           error.response.data &&
-          error.response.data.message) ||
+          error.response.data.error) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
@@ -39,7 +39,7 @@ export const getPageConnectors = createAsyncThunk(
       const message =
         (error.response &&
           error.response.data &&
-          error.response.data.message) ||
+          error.response.data.error) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
@@ -59,7 +59,7 @@ export const getConnectors = createAsyncThunk(
       const message =
         (error.response &&
           error.response.data &&
-          error.response.data.message) ||
+          error.response.data.error) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
@@ -79,7 +79,7 @@ export const getConnectorStatus = createAsyncThunk(
       const message =
         (error.response &&
           error.response.data &&
-          error.response.data.message) ||
+          error.response.data.error) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
@@ -90,7 +90,7 @@ export const getConnectorStatus = createAsyncThunk(
 // Run Connector
 export const runConnector = createAsyncThunk(
   "connector/run",
-  async (connectorData,  thunkAPI) => {
+  async (connectorData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user;
       return await ConnectorService.runConnector(connectorData, token)
@@ -98,7 +98,7 @@ export const runConnector = createAsyncThunk(
       const message =
         (error.response &&
           error.response.data &&
-          error.response.data.message) ||
+          error.response.data.error) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
@@ -117,7 +117,7 @@ export const stopConnector = createAsyncThunk(
       const message =
         (error.response &&
           error.response.data &&
-          error.response.data.message) ||
+          error.response.data.error) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
