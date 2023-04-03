@@ -9,29 +9,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { createConnector } from "../../api/cdc/connectorSlice";
 import CircularProgressBar from "../../components/CircularProgressBar";
+import ErrorBar from "../../components/ErrorBar";
 
 const ConnectorForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isError,isLoading, isSuccess, message } = useSelector(
+  const { isError, isLoading, isSuccess, message } = useSelector(
     (state) => state.cdc
   );
 
   useEffect(() => {
-
-    if (isError) {
-      console.log("create connector isError " + message + " end");
-    }
 
   }, [isError, isSuccess, message, dispatch])
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit = (values) => {
+    values = { ...values, kafka_topic: values.topic_prefix + "." + values.database_include_list + "." + values.kafka_topic }
     dispatch(createConnector(values));
-    navigate('/connectors');
+    if (!isError || isSuccess) {
+      navigate('/connectors');
+    }
   };
 
   if (isLoading) {
@@ -45,6 +45,8 @@ const ConnectorForm = () => {
     return (
       <Box m="20px">
         <Header title="CONNECTOR" subtitle="Create & Save New Connector" />
+
+        <ErrorBar isOpen={isError} title={"Connector Form"} message={message} />
 
         <Formik
           onSubmit={handleFormSubmit}
@@ -232,12 +234,13 @@ const ConnectorForm = () => {
 
                 <TextField
                   fullWidth
+                  disabled
                   variant="filled"
                   type="text"
                   label="Schema History Internal Kafka Topic"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.schema_history_internal_kafka_topic}
+                  value={values.schema_history_internal_kafka_topic + values.database_include_list}
                   name="schema_history_internal_kafka_topic"
                   error={!!touched.schema_history_internal_kafka_topic && !!errors.schema_history_internal_kafka_topic}
                   helperText={touched.schema_history_internal_kafka_topic && errors.schema_history_internal_kafka_topic}
@@ -288,7 +291,7 @@ const checkoutSchema = yup.object().shape({
 
 const initialValues = {
   name: "inventory-connector",
-  kafka_topic: "dbserver1.inventory.customers",
+  kafka_topic: "customers",
   connector_class: "io.debezium.connector.mysql.MySqlConnector",
   tasks_max: "1",
   database_hostname: "mysql",
@@ -299,7 +302,7 @@ const initialValues = {
   topic_prefix: "dbserver1",
   database_include_list: "inventory",
   schema_history_internal_kafka_bootstrap_servers: "kafka:9092",
-  schema_history_internal_kafka_topic: "schema-changes.inventory"
+  schema_history_internal_kafka_topic: "schema-changes."
 };
 
 export default ConnectorForm;

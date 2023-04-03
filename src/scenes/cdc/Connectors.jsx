@@ -11,6 +11,7 @@ import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutline
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import CircularProgressBar from "../../components/CircularProgressBar";
+import ErrorBar from "../../components/ErrorBar";
 
 const Connectors = () => {
     const theme = useTheme();
@@ -37,19 +38,18 @@ const Connectors = () => {
         dispatch(stopConnector(name));
     }
 
+
+
     useEffect(() => {
 
         dispatch(getConnectors());
-
-        if (isError) {
-            console.log(message);
-        }
 
         if (!isError) {
             dispatch(reset());
         }
 
     }, [isError, message, dispatch])
+
 
     if (isLoading) {
         return (
@@ -130,6 +130,7 @@ const Connectors = () => {
                     title="CONNECTORS"
                     subtitle="List of Connectors for Future Processing"
                 />
+                <ErrorBar isOpen={isError} title={"Connectors List"} message={message}/>
                 <Box
                     m="40px 0 0 0"
                     height="75vh"

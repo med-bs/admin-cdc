@@ -14,7 +14,7 @@ import { login, reset } from '../api/auth/authSlice'
 import Header from "../components/Header";
 import { ColorModeContext, tokens } from "../theme";
 import CircularProgressBar from "../components/CircularProgressBar";
-
+import ErrorBar from "../components/ErrorBar";
 
 const SignIn = () => {
     const navigate = useNavigate();
@@ -25,10 +25,6 @@ const SignIn = () => {
     );
 
     useEffect(() => {
-        if (isError) {
-            //toast.error(message)
-            console.log("sign in isError " + message + isError + " end")
-        }
 
         if (isSuccess || user) {
             navigate('/')
@@ -68,6 +64,7 @@ const SignIn = () => {
                         alignItems: 'center',
                     }}
                 >
+                    <ErrorBar isOpen={isError} title={"Connector Form"} message={message} />
 
                     <IconButton sx={{ m: 3 }} onClick={colorMode.toggleColorMode}>
                         {theme.palette.mode === "dark" ? (
