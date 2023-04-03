@@ -13,28 +13,29 @@ import { login, reset } from '../api/auth/authSlice'
 
 import Header from "../components/Header";
 import { ColorModeContext, tokens } from "../theme";
+import CircularProgressBar from "../components/CircularProgressBar";
 
 
 const SignIn = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { user, isError, isSuccess, message } = useSelector(
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state) => state.auth
     );
 
     useEffect(() => {
         if (isError) {
-          //toast.error(message)
-          console.log("sign in isError "+message+isError+" end")
+            //toast.error(message)
+            console.log("sign in isError " + message + isError + " end")
         }
-    
+
         if (isSuccess || user) {
-          navigate('/')
+            navigate('/')
         }
-    
+
         dispatch(reset())
-      }, [user, isError, isSuccess, message, navigate, dispatch])
+    }, [user, isError, isSuccess, message, navigate, dispatch])
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -47,113 +48,122 @@ const SignIn = () => {
         dispatch(login(values))
     };
 
-    return (
-
-        <Container maxWidth="sm" sx={{ backgroundColor: colors.primary[400], borderRadius: '5%' }}>
-            <CssBaseline />
-            <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-
-                <IconButton sx={{ m: 3 }} onClick={colorMode.toggleColorMode}>
-                    {theme.palette.mode === "dark" ? (
-                        <DarkModeOutlinedIcon />
-                    ) : (
-                        <LightModeOutlinedIcon />
-                    )}
-                </IconButton>
-
-                <CssBaseline />
-
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <LockOutlinedIcon />
-                </Avatar>
-
-                <Header title="Sign In" subtitle="" />
-
-                <Formik
-                    onSubmit={handleFormSubmit}
-                    initialValues={initialValues}
-                    validationSchema={checkoutSchema}
-                >
-                    {({
-                        values,
-                        errors,
-                        touched,
-                        handleBlur,
-                        handleChange,
-                        handleSubmit,
-                    }) => (
-                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="username"
-                                name="username"
-                                autoComplete="username"
-
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.username}
-                                error={!!touched.username && !!errors.username}
-                                helperText={touched.username && errors.username}
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type={showPassword ? "text" : "password"}
-                                id="password"
-                                autoComplete="current-password"
-
-                                InputProps={{ // <-- This is where the toggle button is added.
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                            >
-                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
-                                }}
-
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.password}
-                                error={!!touched.password && !!errors.password}
-                                helperText={touched.password && errors.password}
-                            />
-
-                            <Button
-                                type="submit"
-                                fullWidth
-                                color="secondary"
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Sign In
-                            </Button>
-
-                        </Box>
-
-                    )}
-                </Formik>
+    if (isLoading) {
+        return (
+            <Box m="20px" justifyContent="center" display="flex">
+                <CircularProgressBar />
             </Box>
-            <Copyright sx={{ m: 3, p: 3 }} />
-        </Container>
+        );
+    } else {
 
-    );
+        return (
+
+            <Container maxWidth="sm" sx={{ backgroundColor: colors.primary[400], borderRadius: '5%' }}>
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+
+                    <IconButton sx={{ m: 3 }} onClick={colorMode.toggleColorMode}>
+                        {theme.palette.mode === "dark" ? (
+                            <DarkModeOutlinedIcon />
+                        ) : (
+                            <LightModeOutlinedIcon />
+                        )}
+                    </IconButton>
+
+                    <CssBaseline />
+
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+
+                    <Header title="Sign In" subtitle="" />
+
+                    <Formik
+                        onSubmit={handleFormSubmit}
+                        initialValues={initialValues}
+                        validationSchema={checkoutSchema}
+                    >
+                        {({
+                            values,
+                            errors,
+                            touched,
+                            handleBlur,
+                            handleChange,
+                            handleSubmit,
+                        }) => (
+                            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="username"
+                                    name="username"
+                                    autoComplete="username"
+
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.username}
+                                    error={!!touched.username && !!errors.username}
+                                    helperText={touched.username && errors.username}
+                                />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type={showPassword ? "text" : "password"}
+                                    id="password"
+                                    autoComplete="current-password"
+
+                                    InputProps={{ // <-- This is where the toggle button is added.
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                >
+                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+                                    }}
+
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.password}
+                                    error={!!touched.password && !!errors.password}
+                                    helperText={touched.password && errors.password}
+                                />
+
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    color="secondary"
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Sign In
+                                </Button>
+
+                            </Box>
+
+                        )}
+                    </Formik>
+                </Box>
+                <Copyright sx={{ m: 3, p: 3 }} />
+            </Container>
+
+        );
+    }
 }
 
 
