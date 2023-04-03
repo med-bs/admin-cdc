@@ -53,8 +53,6 @@ const runConnector = async (connectorData , token) => {
     };
 
     const response =await axios.post(API_URL + "/runwatcher", connectorData, config);
-    console.log("response.data")
-    console.log(response)
     return response.data;
 };
 
