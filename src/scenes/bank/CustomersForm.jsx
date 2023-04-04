@@ -20,6 +20,9 @@ const CustomerForm = () => {
     );
 
     useEffect(() => {
+        if (!isErrorCus) {
+            dispatch(reset());
+        }
     }, [isErrorCus, isSuccessCus, messageCus, dispatch])
 
     const isNonMobile = useMediaQuery("(min-width:600px)");

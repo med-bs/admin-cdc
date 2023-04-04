@@ -29,7 +29,7 @@ const Customers = () => {
 
         dispatch(getAllCustomers());
 
-        if (!isErrorCus) {
+        if (isErrorCus) {
             dispatch(reset());
         }
 
@@ -89,7 +89,7 @@ const Customers = () => {
             <Box m="20px">
                 <Header title="CUSTOMERS" subtitle="Managing the Bank's Customers" />
 
-                <ErrorBar isOpen={isErrorCus} title={"Customer Form"} message={messageCus} />
+                <ErrorBar isOpen={isErrorCus} title={"Customer List"} message={messageCus} />
 
                 <Box
                     m="40px 0 0 0"
