@@ -28,10 +28,12 @@ const ConnectorForm = () => {
 
   const handleFormSubmit = (values) => {
     values = { ...values, kafka_topic: values.topic_prefix + "." + values.database_include_list + "." + values.kafka_topic }
-    dispatch(createConnector(values));
-    if (!isError || isSuccess) {
-      navigate('/connectors');
+    dispatch(createConnector(values)).then(() => {
+      if (isSuccess) {
+        navigate('/connectors');
+      }
     }
+    )
   };
 
   if (isLoading) {

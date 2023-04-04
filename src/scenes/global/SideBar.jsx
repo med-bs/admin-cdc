@@ -166,14 +166,14 @@ const SideBar = () => {
                         </Typography>
                         <Item
                             title="Manage Clients"
-                            to="/team"
+                            to="/customers"
                             icon={<PeopleOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
                             title="Client & Operation"
-                            to="/contacts"
+                            to="/operations"
                             icon={<AccountBalanceOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}

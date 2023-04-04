@@ -10,8 +10,12 @@ import { IconButton } from '@mui/material';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+
 import CircularProgressBar from "../../components/CircularProgressBar";
 import ErrorBar from "../../components/ErrorBar";
+import { createKafkaConnector, getAllKafkaConnectors } from "../../api/cdc/kafkaSlice";
 
 const Connectors = () => {
     const theme = useTheme();
@@ -20,6 +24,10 @@ const Connectors = () => {
 
     const { connectors, isLoading, isError, message } = useSelector(
         (state) => state.cdc
+    );
+
+    const { kafkaConnectors, kafkaIsLoading, kafkaIsError, kafkaMessage } = useSelector(
+        (state) => state.kafka
     );
 
     const onRefrech = (name) => {
@@ -38,9 +46,13 @@ const Connectors = () => {
         dispatch(stopConnector(name));
     }
 
-
+    const onAdd = (data) => {
+        dispatch(createKafkaConnector(data));
+    }
 
     useEffect(() => {
+
+        dispatch(getAllKafkaConnectors());
 
         dispatch(getConnectors());
 
@@ -50,8 +62,7 @@ const Connectors = () => {
 
     }, [isError, message, dispatch])
 
-
-    if (isLoading) {
+    if (isLoading || kafkaIsLoading) {
         return (
             <Box m="20px" justifyContent="center" display="flex">
                 <CircularProgressBar />
@@ -65,6 +76,7 @@ const Connectors = () => {
             {
                 field: "status",
                 headerName: "Status",
+                headerAlign: "center",
                 flex: 1,
                 renderCell: ({ row: { status } }) => {
                     return (
@@ -93,12 +105,13 @@ const Connectors = () => {
             },
             {
                 field: "name1",
-                headerName: "Start",
+                headerName: "Start Connector",
+                headerAlign: "center",
                 flex: 1,
                 renderCell: (row) => {
                     return (
                         <Box
-                            width="60%"
+                            width="80%"
                             m="0 auto"
                             p="5px"
                             display="flex"
@@ -120,6 +133,48 @@ const Connectors = () => {
                     );
                 },
             },
+
+            {
+                field: "name2",
+                headerName: "Kafka Connect",
+                headerAlign: "center",
+                flex: 1,
+                renderCell: (row) => {
+
+                    return (
+                        kafkaConnectors.includes(row.row.name) ?
+                            (
+                                <Box
+                                    width="80%"
+                                    m="0 auto"
+                                    p="5px"
+                                    display="flex"
+                                    justifyContent="center"
+                                    backgroundColor={colors.greenAccent[700]}
+                                    borderRadius="4px"
+                                >
+                                    <IconButton>
+                                        <VerifiedOutlinedIcon color={colors.grey[100]} />
+                                    </IconButton>
+                                </Box>
+                            ) : (
+                                <Box
+                                    width="80%"
+                                    m="0 auto"
+                                    p="5px"
+                                    display="flex"
+                                    justifyContent="center"
+                                    backgroundColor={colors.redAccent[700]}
+                                    borderRadius="4px"
+                                >
+                                    <IconButton onClick={() => onAdd(row.row)}>
+                                        <AddCircleOutlineOutlinedIcon color={colors.grey[100]} />
+                                    </IconButton>
+                                </Box>
+                            )
+                    );
+                },
+            },
         ];
 
 
@@ -130,7 +185,8 @@ const Connectors = () => {
                     title="CONNECTORS"
                     subtitle="List of Connectors for Future Processing"
                 />
-                <ErrorBar isOpen={isError} title={"Connectors List"} message={message}/>
+                <ErrorBar isOpen={isError} title={"Connectors List"} message={message} />
+                <ErrorBar isOpen={kafkaIsError} title={"Kafka Connectors List"} message={kafkaMessage} />
                 <Box
                     m="40px 0 0 0"
                     height="75vh"
@@ -171,6 +227,7 @@ const Connectors = () => {
                                     columns={columns}
                                     getRowId={(row) => row.name}
                                     components={{ Toolbar: GridToolbar }}
+                                    pageSize={10}
                                 />
                             ) : (
                                 <Header
