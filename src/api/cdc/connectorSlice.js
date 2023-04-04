@@ -51,7 +51,7 @@ export const getPageConnectors = createAsyncThunk(
 // get page Connectors
 export const getConnectors = createAsyncThunk(
   "connector/getall",
-  async (pageData, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user;
       return await ConnectorService.getConnectors(token)
