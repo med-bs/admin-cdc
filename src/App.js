@@ -24,8 +24,8 @@ import SignIn from "./auth/SignIn";
 import ConnectorForm from "./scenes/cdc/ConnectorForm";
 import Connectors from "./scenes/cdc/Connectors";
 
-import Clients from "./scenes/bank/Clients";
-import Operations from "./scenes/bank/Operations";
+import Customers from "./scenes/bank/Customers";
+import CustomerForm from "./scenes/bank/CustomersForm";
 
 function App() {
   const location = useLocation();
@@ -57,8 +57,8 @@ function App() {
               <Route path="/connectors" element={<Connectors />} />
               <Route path="/addconnectors" element={<ConnectorForm />} />
 
-              <Route path="/customers" element={<Clients />} />
-              <Route path="/operations" element={<Operations />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/addcustomer" element={<CustomerForm />} />
 
               <Route path="/signin" element={<SignIn />} />
 

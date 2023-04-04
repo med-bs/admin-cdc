@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import AdminImg from '../../assets/user.png';
+
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
@@ -16,6 +16,7 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 import AddLinkOutlinedIcon from '@mui/icons-material/AddLinkOutlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 import jwt_decode from 'jwt-decode';
 import { useSelector } from "react-redux";
@@ -165,16 +166,16 @@ const SideBar = () => {
                             Bank Managment
                         </Typography>
                         <Item
-                            title="Manage Clients"
+                            title="Manage Customers"
                             to="/customers"
-                            icon={<PeopleOutlinedIcon />}
+                            icon={<AccountBalanceOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Client & Operation"
-                            to="/operations"
-                            icon={<AccountBalanceOutlinedIcon />}
+                            title="Add Customers"
+                            to="/addcustomer"
+                            icon={<AddBoxOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />

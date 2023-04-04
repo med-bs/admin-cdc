@@ -7,7 +7,7 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 
-const Clients = () => {
+const Customers = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const columns = [
@@ -98,12 +98,20 @@ const Clients = () => {
                     "& .MuiCheckbox-root": {
                         color: `${colors.greenAccent[200]} !important`,
                     },
+                    "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                        color: `${colors.grey[100]} !important`,
+                    },
                 }}
             >
-                <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} components={{ Toolbar: GridToolbar }} />
+                <DataGrid
+                    rows={mockDataTeam}
+                    columns={columns}
+                    components={{ Toolbar: GridToolbar }}
+                    pageSize={10}
+                />
             </Box>
         </Box>
     );
 };
 
-export default Clients;
+export default Customers;
