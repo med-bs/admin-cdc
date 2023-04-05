@@ -27,7 +27,12 @@ const ConnectorForm = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit = (values) => {
-    values = { ...values, kafka_topic: values.topic_prefix + "." + values.database_include_list + "." + values.kafka_topic }
+    values = {
+      ...values,
+      kafka_topic: values.topic_prefix + "." + values.database_include_list + "." + values.kafka_topic,
+      schema_history_internal_kafka_topic: initialValues.schema_history_internal_kafka_topic + values.database_include_list
+    }
+
     dispatch(createConnector(values)).then(() => {
       if (!isError) {
         navigate('/connectors');
@@ -191,7 +196,7 @@ const ConnectorForm = () => {
                   name="database_server_id"
                   error={!!touched.database_server_id && !!errors.database_server_id}
                   helperText={touched.database_server_id && errors.database_server_id}
-                  sx={{ gridColumn: "span 1" }}
+                  sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
                   fullWidth
@@ -204,8 +209,9 @@ const ConnectorForm = () => {
                   name="topic_prefix"
                   error={!!touched.topic_prefix && !!errors.topic_prefix}
                   helperText={touched.topic_prefix && errors.topic_prefix}
-                  sx={{ gridColumn: "span 1" }}
+                  sx={{ gridColumn: "span 2" }}
                 />
+
                 <TextField
                   fullWidth
                   variant="filled"
@@ -217,7 +223,7 @@ const ConnectorForm = () => {
                   name="database_include_list"
                   error={!!touched.database_include_list && !!errors.database_include_list}
                   helperText={touched.database_include_list && errors.database_include_list}
-                  sx={{ gridColumn: "span 1" }}
+                  sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
                   fullWidth
@@ -230,22 +236,7 @@ const ConnectorForm = () => {
                   name="schema_history_internal_kafka_bootstrap_servers"
                   error={!!touched.schema_history_internal_kafka_bootstrap_servers && !!errors.schema_history_internal_kafka_bootstrap_servers}
                   helperText={touched.schema_history_internal_kafka_bootstrap_servers && errors.schema_history_internal_kafka_bootstrap_servers}
-                  sx={{ gridColumn: "span 1" }}
-                />
-
-                <TextField
-                  fullWidth
-                  disabled
-                  variant="filled"
-                  type="text"
-                  label="Schema History Internal Kafka Topic"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.schema_history_internal_kafka_topic + values.database_include_list}
-                  name="schema_history_internal_kafka_topic"
-                  error={!!touched.schema_history_internal_kafka_topic && !!errors.schema_history_internal_kafka_topic}
-                  helperText={touched.schema_history_internal_kafka_topic && errors.schema_history_internal_kafka_topic}
-                  sx={{ gridColumn: "span 4" }}
+                  sx={{ gridColumn: "span 2" }}
                 />
               </Box>
               <Box display="flex" justifyContent="center" mt="20px" >
@@ -286,8 +277,7 @@ const checkoutSchema = yup.object().shape({
       message: "Must be in the format 'kafka:xxxx', where xxxx is kafka port number",
       excludeEmptyString: true,
     })
-    .required("required"),
-  schema_history_internal_kafka_topic: yup.string().required("required"),
+    .required("required")
 });
 
 const initialValues = {
