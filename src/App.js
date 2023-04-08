@@ -26,6 +26,7 @@ import Connectors from "./scenes/cdc/Connectors";
 
 import Customers from "./scenes/bank/Customers";
 import CustomerForm from "./scenes/bank/CustomersForm";
+import Operations from "./scenes/bank/Operations";
 
 function App() {
   const location = useLocation();
@@ -59,6 +60,8 @@ function App() {
 
               <Route path="/customers" element={<Customers />} />
               <Route path="/addcustomer" element={<CustomerForm />} />
+
+              <Route path="/operations/:customerId" element={<Operations />} />
 
               <Route path="/signin" element={<SignIn />} />
 
