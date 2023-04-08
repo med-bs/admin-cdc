@@ -23,7 +23,7 @@ const ErrorBar = ({ isOpen, title, message }) => {
                 open={open} autoHideDuration={5000} onClose={handleClose}>
                 <Alert
                     severity="error"
-                    style={{ color: colors.redAccent[700], bgcolor: colors.redAccent[100] }}
+                    style={{ color: colors.redAccent[100], bgcolor: colors.redAccent[500] }}
                 >
                     <AlertTitle>{title}</AlertTitle>
                     {message} — <strong>check it out!</strong>
