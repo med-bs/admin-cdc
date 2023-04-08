@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -43,11 +43,18 @@ const SideBar = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
 
+    const [userdecoded, setUserdecoded] = useState(null);
+
     const { user } = useSelector((state) => state.auth);
-    const userdecoded = jwt_decode(user.accessToken);
+    useEffect(() => {
+        if (user) {
+            setUserdecoded(jwt_decode(user?.accessToken));
+        }
+    }, [user])
 
     return (
         <Box
@@ -116,11 +123,11 @@ const SideBar = () => {
                                     sx={{ m: "10px 0 0 0" }}
                                 >
                                     {/* USER NAME */}
-                                    {userdecoded.name}
+                                    {userdecoded?.name}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
                                     {/* USER ROLES */}
-                                    {userdecoded.scope.map((s) => s + ' ')}
+                                    {userdecoded?.scope?.map((s) => s + ' ')}
                                 </Typography>
                             </Box>
                         </Box>
