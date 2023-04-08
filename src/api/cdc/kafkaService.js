@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ConnectorKafkaData } from "../API_utils";
 
 const API_URL = "/connectors/";
 
@@ -20,7 +21,7 @@ const saveKafkaConnect = async (data) => {
         }
       };
 
-    const postData = {...data, kafka_topic:undefined, status:undefined};
+    const postData = ConnectorKafkaData(data);
 
     const response = await axios.post(API_URL , postData, config);
 

@@ -48,3 +48,26 @@ export function ConnectorTableData(cdc) {
     const result = cdc.map((conector) => formatConnectorTable(conector));
     return result;
 }
+
+export function ConnectorKafkaData(cdc) {
+    const config = {
+        "connector.class": cdc.config["connector.class"],
+        "tasks.max": cdc.config["tasks.max"],
+        "database.hostname": cdc.config["database.hostname"],
+        "database.port": cdc.config["database.port"],
+        "database.user": cdc.config["database.user"],
+        "database.password": cdc.config["database.password"],
+        "database.server.id": cdc.config["database.server.id"],
+        "database.server.name": cdc.config["topic.prefix"],
+        "database.whitelist": cdc.config["database.include.list"],
+        "database.history.kafka.bootstrap.servers": cdc.config["schema.history.internal.kafka.topic"],
+        "database.history.kafka.topic": cdc.config["schema.history.internal.kafka.bootstrap.servers"]
+    };
+
+    const result = {
+        name: cdc.name,
+        config: config
+    };
+
+    return result;
+}

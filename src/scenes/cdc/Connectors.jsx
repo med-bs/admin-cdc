@@ -125,11 +125,11 @@ const Connectors = () => {
                             }
                             borderRadius="4px"
                         >
-                            <IconButton onClick={() => onPlay(row.row.name, row.row.kafka_topic)} disabled={row.row.status === "running"}><PlayCircleOutlineOutlinedIcon color={colors.grey[100]} /></IconButton>
-                            <IconButton onClick={() => onStop(row.row.name)} disabled={row.row.status !== "running"}><StopCircleOutlinedIcon color={colors.grey[100]} /></IconButton>
-                            <IconButton onClick={() => onRefrech(row.row.name)}><AutorenewIcon color={colors.grey[100]} /></IconButton>
+                            <IconButton onClick={() => onPlay(row.row.name, row.row.kafka_topic)} disabled /* ={row.row.status === "running"} */><PlayCircleOutlineOutlinedIcon color={colors.grey[100]} /></IconButton>
+                            <IconButton onClick={() => onStop(row.row.name)} disabled /* ={row.row.status !== "running"} */><StopCircleOutlinedIcon color={colors.grey[100]} /></IconButton>
+                            <IconButton onClick={() => onRefrech(row.row.name)} disabled ><AutorenewIcon color={colors.grey[100]} /></IconButton>
 
-                        </Box>
+                        </Box >
                     );
                 },
             },
