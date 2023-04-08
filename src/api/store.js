@@ -3,6 +3,8 @@ import authReducer from "./auth/authSlice";
 import connectorReducer from "./cdc/connectorSlice";
 import kafkaReducer from "./cdc/kafkaSlice"
 import customerReducer from "./bank/customerSlice"
+import operationHistoryReducer from "./bank/operationHistorySlice"
+import accountReducer from "./bank/accountSlice"
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +13,9 @@ export const store = configureStore({
         cdc: connectorReducer,
         kafka: kafkaReducer,
 
-        customers:customerReducer,
+        customers: customerReducer,
+
+        accountHistory: operationHistoryReducer,
+        accounts: accountReducer,
     },
 });
