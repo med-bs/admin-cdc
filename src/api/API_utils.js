@@ -60,8 +60,8 @@ export function ConnectorKafkaData(cdc) {
         "database.server.id": cdc.config["database.server.id"],
         "database.server.name": cdc.config["topic.prefix"],
         "database.whitelist": cdc.config["database.include.list"],
-        "database.history.kafka.bootstrap.servers": cdc.config["schema.history.internal.kafka.topic"],
-        "database.history.kafka.topic": cdc.config["schema.history.internal.kafka.bootstrap.servers"]
+        "database.history.kafka.bootstrap.servers": cdc.config["schema.history.internal.kafka.bootstrap.servers"],
+        "database.history.kafka.topic": cdc.config["schema.history.internal.kafka.topic"]
     };
 
     const result = {
