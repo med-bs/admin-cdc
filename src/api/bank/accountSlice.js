@@ -160,6 +160,7 @@ export const accountSlice = createSlice({
             .addCase(addSavingAccount.fulfilled, (state, action) => {
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
+                state.isErrorAcc = false;
                 state.accounts.push(action.payload);
 
             })
@@ -175,6 +176,7 @@ export const accountSlice = createSlice({
             .addCase(addCurrentAccount.fulfilled, (state, action) => {
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
+                state.isErrorAcc = false;
                 state.accounts.push(action.payload);
 
             })
@@ -190,6 +192,7 @@ export const accountSlice = createSlice({
             .addCase(getAllAccounts.fulfilled, (state, action) => {
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
+                state.isErrorAcc = false;
                 state.accounts = action.payload;
 
             })
@@ -205,6 +208,7 @@ export const accountSlice = createSlice({
             .addCase(getAccount.fulfilled, (state, action) => {
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
+                state.isErrorAcc = false;
                 state.account = action.payload;
 
             })
@@ -220,6 +224,7 @@ export const accountSlice = createSlice({
             .addCase(debit.fulfilled, (state, action) => {
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
+                state.isErrorAcc = false;
                 state.accounts = state.accounts.map((account) => {
                     if (account.id === action.payload.accountId) {
                         return { ...account, balance: account.balance - action.payload.amount }
@@ -230,6 +235,7 @@ export const accountSlice = createSlice({
             .addCase(debit.rejected, (state, action) => {
                 state.isLoadingAcc = false;
                 state.isErrorAcc = true;
+                state.isErrorAcc = false;
                 state.messageAcc = action.payload;
             })
 
@@ -239,6 +245,7 @@ export const accountSlice = createSlice({
             .addCase(credit.fulfilled, (state, action) => {
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
+                state.isErrorAcc = false;
                 state.accounts = state.accounts.map((account) => {
                     if (account.id === action.payload.accountId) {
                         return { ...account, balance: account.balance + action.payload.amount }
@@ -259,6 +266,7 @@ export const accountSlice = createSlice({
             .addCase(transfer.fulfilled, (state, action) => {
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
+                state.isErrorAcc = false;
                 state.accounts = state.accounts.map((account) => {
 
                     if (account.id === action.payload.accountSource) {
