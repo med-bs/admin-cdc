@@ -23,11 +23,15 @@ const AccountForm = () => {
 
     const [value, setValue] = useState(0);
 
-    const handleSubmitCurrent = (values) => {
-        dispatch(addCurrentAccount({ ...values, clientDTO: { id: customerId } }));
+    const handleSubmitCurrent = (values, { resetForm }) => {
+        dispatch(addCurrentAccount({ ...values, balance: values.balance1, clientDTO: { id: customerId } }));
+        // Reset the form fields
+        resetForm()
     }
-    const handleSubmitSaving = (values) => {
+    const handleSubmitSaving = (values, { resetForm }) => {
         dispatch(addSavingAccount({ ...values, clientDTO: { id: customerId } }))
+        // Reset the form fields
+        resetForm();
     }
 
     const checkoutSavingSchema = yup.object().shape({
@@ -183,7 +187,12 @@ const AccountForm = () => {
     ];
 
     return (
-        <>
+        <Box
+            gridColumn="span 4"
+            gridRow="span 2"
+            backgroundColor={colors.primary[400]}
+            overflow="auto"
+        >
             <Box
                 display="flex"
                 justifyContent="center"
@@ -217,7 +226,7 @@ const AccountForm = () => {
                 {accountform[value]}
                 <ErrorBar isOpen={isErrorAcc} title={"Accout Form"} message={messageAcc} />
             </Box>
-        </>
+        </Box>
     );
 };
 

@@ -1,6 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { tokens } from "../../theme";
 import { Box, Button, Typography } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllAccounts } from "../../api/bank/accountSlice";
@@ -20,12 +21,7 @@ const Accounts = ({ custumerId, setRequestHistory }) => {
     );
 
     const viewHistory = (account) => {
-        setRequestHistory({
-            accountId: account,
-            customerId: custumerId,
-            page: 0,
-            size: 7,
-        });
+
     }
 
     useEffect(() => {
@@ -43,9 +39,102 @@ const Accounts = ({ custumerId, setRequestHistory }) => {
         );
     } else {
 
+        const columns = [
+            { field: "id", headerName: "ID" },
+            {
+                field: "type",
+                headerName: "Type",
+                headerAlign: "center",
+                flex: 1,
+                renderCell: (row) => {
+                    return (
+                        <Box
+                            width="60%"
+                            m="0 auto"
+                            p="5px"
+                            display="flex"
+                            justifyContent="center"
+                            borderRadius="4px"
+                        >
+                            <Typography
+                                color={
+                                    row.row.type === "SavingAccount" ?
+                                        colors.greenAccent[500] :
+                                        colors.redAccent[500]
+                                }
+                                variant="h5"
+                                fontWeight="600"
+                            >
+                                {row.row.type}
+                            </Typography>
+                        </Box>
+                    );
+                },
+            },
+            {
+                field: "createdAt",
+                headerName: "Created at",
+                headerAlign: "center",
+                flex: 1,
+                renderCell: (row) => {
+                    return (
+                        <Box
+                            width="60%"
+                            m="0 auto"
+                            p="5px"
+                            display="flex"
+                            justifyContent="center"
+                            borderRadius="4px"
+                        >
+                            <Typography
+                                color={colors.grey[100]}
+                                variant="h5"
+                                fontWeight="600"
+                            >
+                                {new Date(row.row.createdAt).toLocaleString('fr')}
+                            </Typography>
+                        </Box>
+                    );
+                },
+            },
+            {
+                field: "balance",
+                headerName: "Balance",
+                headerAlign: "center",
+                flex: 1,
+                renderCell: (row) => {
+                    return (
+                        <Box
+                            width="60%"
+                            m="0 auto"
+                            p="5px"
+                            display="flex"
+                            justifyContent="center"
+                            borderRadius="4px"
+                        >
+                            <Button onClick={() => { viewHistory(row.row) }}>
+                                <Box
+                                    backgroundColor={
+                                        row.row.type === "SavingAccount" ?
+                                            colors.greenAccent[500] :
+                                            colors.redAccent[500]
+                                    }
+
+                                    p="5px 10px"
+                                    borderRadius="4px"
+                                >
+                                    ${row.row.balance}
+                                </Box>
+                            </Button>
+                        </Box>
+                    );
+                },
+            },
+        ];
+
         return (
             <Box
-                gridColumn="span 4"
+                gridColumn="span 8"
                 gridRow="span 2"
                 backgroundColor={colors.primary[400]}
                 overflow="auto"
@@ -62,49 +151,44 @@ const Accounts = ({ custumerId, setRequestHistory }) => {
                         Accounts List
                     </Typography>
                 </Box>
-                {accounts?.map((account) => (
-
-                    <Box
-                        key={`${account?.id}`}
-                        display="flex"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        borderBottom={`4px solid ${colors.primary[500]}`}
-                        p="15px"
-                    >
-                        <Box>
-                            <Typography
-                                color={
-                                    account?.type === "SavingAccount" ?
-                                        colors.greenAccent[500] :
-                                        colors.redAccent[500]
-                                }
-                                variant="h5"
-                                fontWeight="600"
-                            >
-                                {account?.type}
-                            </Typography>
-                            <Typography color={colors.grey[100]}>
-                                {account?.id}
-                            </Typography>
-                        </Box>
-                        <Box color={colors.grey[100]}>{new Date(account?.createdAt).toLocaleString('en-US')}</Box>
-
-                        <Button onClick={() => { viewHistory(account) }}>
-                            <Box
-                                backgroundColor={
-                                    account?.type === "SavingAccount" ?
-                                        colors.greenAccent[500] :
-                                        colors.redAccent[500]
-                                }
-                                p="5px 10px"
-                                borderRadius="4px"
-                            >
-                                ${account?.balance}
-                            </Box>
-                        </Button>
-                    </Box>
-                ))}
+                <Box
+                    height="75vh"
+                    sx={{
+                        "& .MuiDataGrid-root": {
+                            border: "none",
+                        },
+                        "& .MuiDataGrid-cell": {
+                            borderBottom: "none",
+                        },
+                        "& .name-column--cell": {
+                            color: colors.greenAccent[300],
+                        },
+                        "& .MuiDataGrid-columnHeaders": {
+                            backgroundColor: colors.blueAccent[700],
+                            borderBottom: "none",
+                        },
+                        "& .MuiDataGrid-virtualScroller": {
+                            backgroundColor: colors.primary[400],
+                        },
+                        "& .MuiDataGrid-footerContainer": {
+                            borderTop: "none",
+                            backgroundColor: colors.blueAccent[700],
+                        },
+                        "& .MuiCheckbox-root": {
+                            color: `${colors.greenAccent[200]} !important`,
+                        },
+                        "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                            color: `${colors.grey[100]} !important`,
+                        },
+                    }}
+                >
+                    <DataGrid
+                        rows={accounts}
+                        columns={columns}
+                        components={{ Toolbar: GridToolbar }}
+                        pageSize={10}
+                    />
+                </Box>
                 <ErrorBar isOpen={isErrorAcc} title={"Accounts list"} message={messageAcc} />
 
             </Box>

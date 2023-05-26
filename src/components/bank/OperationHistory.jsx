@@ -49,7 +49,7 @@ const OperationHistory = ({ requestHistory }) => {
     } else {
         return (
             <Box
-                gridColumn="span 4"
+                gridColumn="span 5"
                 gridRow="span 2"
                 backgroundColor={colors.primary[400]}
                 overflow="auto"

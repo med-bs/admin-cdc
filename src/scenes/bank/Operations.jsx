@@ -2,25 +2,17 @@ import { Box } from "@mui/material";
 import Header from "../../components/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CircularProgressBar from "../../components/CircularProgressBar";
 import ErrorBar from "../../components/ErrorBar";
 import { getCustomer, reset } from "../../api/bank/customerSlice";
 import Accounts from "../../components/bank/Accounts";
-import OperationHistory from "../../components/bank/OperationHistory";
-import OperationForm from "../../components/bank/OperationForm";
+import AccountForm from "../../components/bank/AccountForm";
 
 const Operations = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const [requestHistory, setRequestHistory] = useState({
-        accountId: "",
-        customerId: "e",
-        currentPage: 0,
-        pageSize: 0,
-    });
 
     const { customer, isErrorCus, isLoadingCus, messageCus } = useSelector(
         (state) => state.customers
@@ -66,11 +58,9 @@ const Operations = () => {
                     gap="15px"
                 >
 
-                    <Accounts custumerId={customer?.id} setRequestHistory={setRequestHistory} />
+                    <Accounts custumerId={customer?.id} />
 
-                    <OperationForm account={requestHistory?.accountId} />
-
-                    <OperationHistory requestHistory={requestHistory} />
+                    <AccountForm />
 
                 </Box>
             </Box>
