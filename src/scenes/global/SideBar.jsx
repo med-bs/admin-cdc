@@ -15,8 +15,8 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 import AddLinkOutlinedIcon from '@mui/icons-material/AddLinkOutlined';
-import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+
 
 import jwt_decode from 'jwt-decode';
 import { useSelector } from "react-redux";
@@ -147,7 +147,7 @@ const SideBar = () => {
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            CDC Configurations
+                            CDC
                         </Typography>
 
                         <Item
@@ -170,19 +170,26 @@ const SideBar = () => {
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            Bank Managment
+                            Profile
                         </Typography>
                         <Item
-                            title="Manage Customers"
-                            to="/customers"
-                            icon={<AccountBalanceOutlinedIcon />}
+                            title="Personal account"
+                            to="/profile"
+                            icon={<PersonOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Add Customers"
-                            to="/addcustomer"
-                            icon={<AddBoxOutlinedIcon />}
+                            title="Users accounts"
+                            to="/profile"
+                            icon={<PersonOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="Add user"
+                            to="/profile"
+                            icon={<PersonOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />

@@ -2,10 +2,9 @@ import { useContext, useEffect } from "react";
 import { Box, IconButton, useTheme } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { LogoutOutlined } from "@mui/icons-material";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { ColorModeContext } from "../../theme";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,10 +34,7 @@ const TopBar = () => {
     return (
         <Box display="flex" justifyContent="space-between" p={2}>
             <Box display="flex">
-                <IconButton>
-                    <PersonOutlinedIcon />
-                    <Link to={'/profile'} />
-                </IconButton>
+
             </Box>
 
             <Box display="flex">

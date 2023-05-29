@@ -7,13 +7,6 @@ import SideBar from "./scenes/global/SideBar";
 
 import Dashboard from "./scenes/Dashboard";
 
-// import Calendar from "./scenes/Calendar";
-// import ClientForm from "./scenes/ClientForm";
-// import Contacts from "./scenes/Contacts";
-// import FAQ from "./scenes/FAQ";
-// import Invoices from "./scenes/Invoices";
-// import Team from "./scenes/Team.jsx";
-
 import Bar from "./scenes/Bar";
 import Geography from "./scenes/Geography";
 import Line from "./scenes/Line";
@@ -23,10 +16,6 @@ import SignIn from "./auth/SignIn";
 
 import ConnectorForm from "./scenes/cdc/ConnectorForm";
 import Connectors from "./scenes/cdc/Connectors";
-
-import Customers from "./scenes/bank/Customers";
-import CustomerForm from "./scenes/bank/CustomersForm";
-import Operations from "./scenes/bank/Operations";
 
 function App() {
   const location = useLocation();
@@ -43,13 +32,6 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
 
-              {/* <Route path="/team" element={<Team />} /> */}
-              {/* <Route path="/invoices" element={<Invoices />} /> */}
-              {/* <Route path="/form" element={<ClientForm />} /> */}
-              {/* <Route path="/calendar" element={<Calendar />} /> */}
-              {/* <Route path="/faq" element={<FAQ />} /> */}
-              {/* <Route path="/contacts" element={<Contacts />} /> */}
-
               <Route path="/bar" element={<Bar />} />
               <Route path="/line" element={<Line />} />
               <Route path="/pie" element={<Pie />} />
@@ -57,11 +39,6 @@ function App() {
 
               <Route path="/connectors" element={<Connectors />} />
               <Route path="/addconnectors" element={<ConnectorForm />} />
-
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/addcustomer" element={<CustomerForm />} />
-
-              <Route path="/operations/:customerId" element={<Operations />} />
 
               <Route path="/signin" element={<SignIn />} />
 
