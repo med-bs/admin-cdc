@@ -3,6 +3,7 @@ import ConnectorService from "./connectorService";
 
 const initialState = {
   connectors: [],
+  connector: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -27,14 +28,14 @@ export const createConnector = createAsyncThunk(
     }
   }
 );
-/*
-// get page Connectors
-export const getPageConnectors = createAsyncThunk(
-  "connector/getpage",
-  async (pageData, thunkAPI) => {
+
+// get page Connector
+export const getConnector = createAsyncThunk(
+  "connector/get",
+  async (connectorName, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user;
-      return await ConnectorService.getPageConnectors(pageData, token)
+      return await ConnectorService.getConnector(connectorName, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -46,7 +47,6 @@ export const getPageConnectors = createAsyncThunk(
     }
   }
 );
-*/
 
 // get page Connectors
 export const getConnectors = createAsyncThunk(
@@ -55,64 +55,6 @@ export const getConnectors = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user;
       return await ConnectorService.getConnectors(token)
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.error) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-// get Connector Status getConnectors
-export const getConnectorStatus = createAsyncThunk(
-  "connector/getstatus",
-  async (containerName, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user;
-
-      return await ConnectorService.getConnectorStatus(containerName, token)
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.error) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-// Run Connector
-export const runConnector = createAsyncThunk(
-  "connector/run",
-  async (connectorData, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user;
-      return await ConnectorService.runConnector(connectorData, token)
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.error) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-// Stop Connector
-export const stopConnector = createAsyncThunk(
-  "connector/stop",
-  async (containerName, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user;
-      return await ConnectorService.stopConnector(containerName, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -148,21 +90,6 @@ export const connectorSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      /*
-            .addCase(getPageConnectors.pending, (state) => {
-              state.isLoading = true;
-            })
-            .addCase(getPageConnectors.fulfilled, (state, action) => {
-              state.isLoading = false;
-              state.isSuccess = true;
-              state.connectors = action.payload;
-            })
-            .addCase(getPageConnectors.rejected, (state, action) => {
-              state.isLoading = false;
-              state.isError = true;
-              state.message = action.payload;
-            })
-      */
 
       .addCase(getConnectors.pending, (state) => {
         state.isLoading = true;
@@ -178,67 +105,20 @@ export const connectorSlice = createSlice({
         state.message = action.payload;
       })
 
-      .addCase(getConnectorStatus.pending, (state) => {
+      .addCase(getConnector.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getConnectorStatus.fulfilled, (state, action) => {
+      .addCase(getConnector.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-
-        state.connectors = state.connectors.map((connector) => {
-          if (connector.name === action.payload.name) {
-            return { ...connector, status: action.payload.status }
-          }
-          return connector;
-        }
-        );
-
+        state.connector = action.payload;
       })
-      .addCase(getConnectorStatus.rejected, (state, action) => {
+      .addCase(getConnector.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
 
-      .addCase(runConnector.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(runConnector.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.connectors = state.connectors.map((connector) => {
-          if (connector.name === action.payload.name) {
-            return { ...connector, status: action.payload.status }
-          }
-          return connector;
-        }
-        );
-      })
-      .addCase(runConnector.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
-
-      .addCase(stopConnector.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(stopConnector.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.connectors = state.connectors.map((connector) => {
-          if (connector.name === action.payload.name) {
-            return { ...connector, status: action.payload.status }
-          }
-          return connector;
-        }
-        );
-      })
-      .addCase(stopConnector.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      });
   },
 });
 

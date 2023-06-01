@@ -11,6 +11,13 @@ const getAllKafkaConnect = async () => {
     return response.data;
 };
 
+// get kafka connect
+const getKafkaConnect = async (connectorName) => {
+
+  const response = await axios.get(API_URL+connectorName);
+  return response.data;
+};
+
 // save kafka Connector
 const saveKafkaConnect = async (data) => {
 
@@ -28,8 +35,17 @@ const saveKafkaConnect = async (data) => {
     return response.data;
 };
 
+// delete kafka connect
+const deleteKafkaConnect = async (connectorName) => {
+
+  const response = await axios.delete(API_URL+connectorName);
+  return response.data;
+};
+
 const kafkaService = {
     getAllKafkaConnect,
+    getKafkaConnect,
+    deleteKafkaConnect,
     saveKafkaConnect
 };
 

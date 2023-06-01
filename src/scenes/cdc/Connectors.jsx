@@ -38,11 +38,7 @@ const Connectors = () => {
 
         dispatch(getConnectors());
 
-        if (!isError) {
-            dispatch(reset());
-        }
-
-    }, [isError, message, dispatch])
+    }, [dispatch])
 
     if (isLoading || kafkaIsLoading) {
         return (
@@ -140,24 +136,13 @@ const Connectors = () => {
                         },
                     }}
                 >
-                    {
-                        connectors.length > 0 ?
-                            (
-                                <DataGrid
-                                    rows={connectors}
-                                    columns={columns}
-                                    getRowId={(row) => row.name}
-                                    components={{ Toolbar: GridToolbar }}
-                                    pageSize={10}
-                                />
-                            ) : (
-                                <Header
-                                    title=""
-                                    subtitle="Empty"
-                                />
-                            )
-                    }
-
+                    <DataGrid
+                        rows={connectors}
+                        columns={columns}
+                        getRowId={(row) => row?.name}
+                        components={{ Toolbar: GridToolbar }}
+                        pageSize={10}
+                    />
                 </Box>
             </Box>
         );

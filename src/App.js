@@ -16,6 +16,7 @@ import SignIn from "./auth/SignIn";
 
 import ConnectorForm from "./scenes/cdc/ConnectorForm";
 import Connectors from "./scenes/cdc/Connectors";
+import Connector from "./scenes/cdc/Connector";
 
 function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
               <Route path="/geography" element={<Geography />} />
 
               <Route path="/connectors" element={<Connectors />} />
+              <Route path="/connector/:connectorName" element={<Connector />} />
               <Route path="/addconnectors" element={<ConnectorForm />} />
 
               <Route path="/signin" element={<SignIn />} />
